@@ -5,8 +5,12 @@ import { Client, Account, ID } from "appwrite";
 
 // A class called AuthService
 export class AuthService {
-    client = new Client();
-    account;
+    client = new Client();  // initialized directly
+    //This is safe and straightforward because Client() doesn't need anything extra to be constructed—it’s just an empty Appwrite client at that point.You could even move this to the constructor too
+
+    account; // declared here, initialized in the constructor. You need the client to be configured first (via setEndpoint and setProject) before you can safely use it to create an Account.
+    
+
 
     // This sets up the Appwrite client:
     constructor() {
@@ -15,6 +19,7 @@ export class AuthService {
             .setEndpoint(conf.appwriteUrl)
             .setProject(conf.appwriteProjectId);
         this.account = new Account(this.client);
+        // And by passing this.client into Account, it's linking it to the specific project & server you've just configured.
             
     }
 
@@ -33,6 +38,8 @@ export class AuthService {
             throw error;
         }
     }
+
+     // created alaag se so if kal ko you want to switch to mongo or something
 
     async login({email, password}) {
         try {
