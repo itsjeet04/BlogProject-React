@@ -1,5 +1,5 @@
 import conf from "../conf/conf.";
-import { Client, Account, Databases, Storage, ID, Query} from "appwrite";
+import { Client, Databases, Storage, ID, Query} from "appwrite";
 
 export class Service {
     client = new Client();
@@ -18,6 +18,7 @@ export class Service {
 
     // created alaag se so if kal ko you want to switch to mongo or something
     async createPost ({title , slug , content , featuredImage}) 
+    // A slug is a simplified, URL-friendly version of a string 
     // createPost method is not implemented yet
     {
         try {

@@ -1,5 +1,11 @@
 // take help from docs 
 
+
+// 🏛️ Client is like the door to the library
+// Account is like your library card
+// 📖 Database is where your books are kept
+
+
 import conf from '../conf/conf.js';
 import { Client, Account, ID } from "appwrite";
 
@@ -7,7 +13,7 @@ import { Client, Account, ID } from "appwrite";
 export class AuthService {
     client = new Client();  // initialized directly
     //This is safe and straightforward because Client() doesn't need anything extra to be constructed—it’s just an empty Appwrite client at that point.You could even move this to the constructor too
-
+    // You can’t create an Account object before Client is fully configured.
     account; // declared here, initialized in the constructor. You need the client to be configured first (via setEndpoint and setProject) before you can safely use it to create an Account.
     
 
@@ -43,7 +49,7 @@ export class AuthService {
 
     async login({email, password}) {
         try {
-            return await this.account.createEmailSession(email, password);
+            return await this.account.createEmailPasswordSession(email, password);
         } catch (error) {
             throw error;
         }
@@ -70,5 +76,16 @@ export class AuthService {
 }
 
 const authService = new AuthService();
-
+// “Hey app! I’m creating one ready-to-use object from the AuthService class and giving it to anyone who imports it.”
 export default authService
+// taki bana bana obj hi seedha export kar do
+
+
+// In your components or other services, you can now just do:
+// import authService from 'path/to/AuthService.js';
+// authService.login({ email, password });
+
+// else 
+// import { AuthService } from 'path/to/AuthService.js';
+// const auth = new AuthService();
+// auth.login(...);
